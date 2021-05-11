@@ -31,6 +31,9 @@ public class AccountService {
 	@Transactional
 	public AccountResponse create(AccountRequest request) {
 		Account account = AccountMapper.INSTANCE.accountRequestToAccount(request);
+		if (repository.existsByEmail(account.getEmail())) {
+			throw new IllegalArgumentException("Email já existente!");
+		}
 		repository.persist(account);
 		return AccountMapper.INSTANCE.accountToAccountResponse(account);
 	}

@@ -8,4 +8,8 @@ import lms.domain.model.Account;
 @ApplicationScoped
 public class AccountRepository implements PanacheRepository<Account> {
 
+	public boolean existsByEmail(String email) {
+		return count("email", email) == 1;
+	}
+
 }
